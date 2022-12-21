@@ -21,6 +21,8 @@ public class 햄버거만들기 {
 
     public static void main(String[] args) {
         int[] aa = {2,1,1,2,3,1,2,3,1};
+        int[] answer = {};
+
         System.out.println(solution(aa));
     }
 }
