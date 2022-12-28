@@ -12,6 +12,7 @@ public class kakao_숫자문자열영단어 {
 
     public static void main(String[] args) {
         System.out.println(solution("one4seveneight"));
+        System.out.println(solution("23four5six7"));
     }
 }
 
