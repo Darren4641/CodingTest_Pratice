@@ -1,4 +1,4 @@
-package Programers.Level1;
+package Programers.Level2;
 
 public class 배열최소공배수 {
 
