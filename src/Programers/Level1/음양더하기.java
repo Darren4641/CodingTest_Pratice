@@ -18,7 +18,5 @@ public class 음양더하기 {
         int[] x = {4,7,12};
         boolean[] y = {true,false,true};
         System.out.println(new 음양더하기().solution(x, y));
-
-
     }
 }
