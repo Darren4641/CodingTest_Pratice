@@ -1,45 +1,51 @@
 package Backjoon;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Collections;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(System.out));
+    public void run() {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+        int data = 0;
+        int out = 0;
+        try {
+            int num = Integer.parseInt(br.readLine());
+            for(int i = 0; i < num; i++) {
+                data = Integer.parseInt(br.readLine());
+                if(data == 0)
+                    if(pq.isEmpty())
+                        wr.write("0\n");
+                    else {
+                        out = pq.poll();
+                        if(map.get(out * -1) == null || map.get(out * -1) == 0) wr.write(out + "\n");
+                        else {
+                            if(map.get(out * -1) > 0) {
+                                wr.write((out * -1) + "\n");
+                                map.put((out * -1), map.get((out * -1)) - 1);
+                            }
+                        }
+                    }
+                else {
+                    if(data < 0) {
+                        if(map.get(data) == null)
+                            map.put(data, 1);
+                        else
+                            map.put(data, map.get(data) + 1);
+                    }
+                    pq.add(Math.abs(data));
+                }
 
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        int coin = 0;
-        for(int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            coin = Integer.parseInt(st.nextToken());
-            if(coin < K)
-                pq.add(coin);
-        }
-
-        int tmp = K;
-        int coinKind = 0;
-        int answer = 0;
-        while(tmp != 0) {
-            coinKind = pq.poll();
-            if(coinKind < tmp) {
-                System.out.println("@@ : " + coinKind);
-                answer += tmp/coinKind;
-                tmp -= coinKind * (tmp/coinKind);
             }
-        }
-        bw.write(String.valueOf(answer));
-        br.close();
-        bw.close();
+            wr.flush();
+            wr.close();
+        } catch (IOException e) { e.printStackTrace(); }
+
     }
+
+    public static void main(String[] args) { new Main().run();}
 }
