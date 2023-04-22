@@ -1,49 +1,39 @@
 package Backjoon.Soma;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class 로마숫자만들기 {
-
-    static int[] num;
-    static boolean[] visited;
-    static int count;
-    static Map<Integer, Integer> map;
-    public static void solution(int[] num) {
-        map = new HashMap<>();
-        visited = new boolean[num.length];
-        for(int i = 0; i < num.length; i++) {
-            DFS(i, 0, num[i]);
-        }
-
-    }
-
-    public static void DFS(int n, int d, int s) {
-        if(d == count) {
-            System.out.println(s);
-        }
-
-        visited[n] = true;
-        for(int i = 0; i < num.length; i++) {
-            if(!visited[i]) {
-                DFS(i, d + 1, s + num[i]);
-            }
-        }
-
-
-    }
+    public static int[] roma = { 1, 5, 10, 50};
+    public static boolean[] visit;
+    public static int answer = 0;
+    public static int N;
 
     public static void main(String[] args) throws IOException {
-        Map<Integer, String> map = new HashMap<Integer, String>();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        num = new int[] { 1, 5, 10, 50};
-        count = Integer.parseInt(br.readLine());
+        //로마 숫자 세팅
+        visit = new boolean[1001];
 
-        solution(num);
+        N = Integer.parseInt(br.readLine());
+
+        dfs(0, 0, 0);
+        bw.write(answer + "");
+        bw.close();
+
+    }
+
+    public static void dfs(int depth, int start, int sum) {
+        if(depth == N) {
+            if(!visit[sum]) {
+                visit[sum] = true;
+                answer++;
+            }
+            return;
+        }
+        for(int i = start; i < roma.length; i++) {
+            dfs(depth + 1, i, sum + roma[i]);
+        }
     }
 
 }
